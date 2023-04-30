@@ -36,7 +36,14 @@ Diese historischen Daten sind qualitätsgeprüfte Messwerte und Beobachtungen. S
 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
 
-1. Example Issue [#1][i1]
-2. ...
+1. Get datasource1[#1][i1]
+2. Get datasource 2[#2][i2]
+3. Link data[#3][i3]
+4. Test Pipeline[#4][i4]
+5. Deploy Project[#5][i5]
 
-[i1]: https://github.com/jvalue/2023-amse-template/issues/1
+[i1]: https://github.com/jnskoe/2023-amse-template/issues/1
+[i2]: https://github.com/jnskoe/2023-amse-template/issues/2
+[i3]: https://github.com/jnskoe/2023-amse-template/issues/3
+[i4]: https://github.com/jnskoe/2023-amse-template/issues/4
+[i5]: https://github.com/jnskoe/2023-amse-template/issues/5
