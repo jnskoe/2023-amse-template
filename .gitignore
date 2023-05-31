@@ -1,3 +1,4 @@
 data.sqlite
 airports.sqlite
 data/__pycache__/script.cpython-310.pyc
+.vscode/settings.json

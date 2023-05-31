@@ -1,5 +1,8 @@
 import pandas as pd
 from datetime import datetime
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import numpy
 
 def main():
     
@@ -30,8 +33,27 @@ def main():
     weatherdata = []
     df = pd.read_sql_table('weather', 'sqlite:///data.sqlite')
     for index, row in df.iterrows():
-        weatherdata.append((datetime.strptime(row["MESS_DATUM"],"%Y%m%d%h").row["RF_STD"]))
-    return weatherdata
-
+        weatherdata.append((datetime.strptime(str(row["MESS_DATUM"]),"%Y%m%d%H"),row["RF_STD"]))
+    
+    currdate = monthdata[0][0]
+    combinedmonth = []
+    sum = 0
+    for i in monthdata:
+        if i[0].hour == currdate.hour:
+            sum = sum + i[1]
+        else:
+            combinedmonth.append((currdate,sum))
+            sum = i[1]
+            currdate  = i[0]
+    cleanedweatherdata = []
+    for i in weatherdata:
+        if str(i[0].year) == "2019":
+            cleanedweatherdata.append(i)
+    zip(*combinedmonth)
+    plt.plot(*zip(*combinedmonth))
+    zip(*cleanedweatherdata)
+    plt.plot(*zip(*cleanedweatherdata))
+    plt.show()
+   
 if __name__ == "__main__":
     main()
