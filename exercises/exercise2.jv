@@ -1,0 +1,30 @@
+pipeline airports{
+    block DataExtractor oftype HttpExtractor{ url: "https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV";}
+    block airTextFileInterpreter oftype TextFileInterpreter{}
+    block airCSVInterpreter oftype CSVInterpreter{
+        delimiter: ";";
+    }
+
+    block airTableInterpreter oftype TableInterpreter{
+        header: true;
+        columns: [
+        "EVA_NR" oftype integer,
+            "DS100" oftype text,
+            "IFOPT" oftype text,
+            "NAME" oftype text,
+            "Verkehr" oftype text,
+            "Laenge" oftype decimal,
+            "Breite" oftype decimal,
+            "Betreiber_Name" oftype text,
+            "Betreiber_Nr" oftype integer,
+        ];
+    }
+
+    block DatabaseLoader oftype SQLiteLoader    {table: "trainstops"; file: "./trainstops.sqlite";}
+
+    DataExtractor
+        ->airTextFileInterpreter
+        ->airCSVInterpreter
+        ->airTableInterpreter
+        ->DatabaseLoader;
+}
