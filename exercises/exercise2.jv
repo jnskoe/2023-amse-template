@@ -54,7 +54,7 @@ pipeline airports{
         columns: [
         "EVA_NR" oftype integer,
             "DS100" oftype noemptycheck,
-            "IFOPT" oftype text,
+            "IFOPT" oftype ifoptCheck,
             "NAME" oftype noemptycheck,
             "Verkehr" oftype verkehrcheck,
             "Laenge" oftype LBcheck,
