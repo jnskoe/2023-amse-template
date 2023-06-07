@@ -1,4 +1,48 @@
+    valuetype noemptycheck oftype text {
+        constraints: [
+           noempty,
+        ];
+    }
+    
+    constraint noempty oftype DenylistConstraint {
+        denylist: ["",];
+    }
+
+
+    valuetype verkehrcheck oftype text {
+        constraints: [
+            verkehrlvalues,
+        ];
+    }
+
+    constraint verkehrlvalues oftype AllowlistConstraint {
+        allowlist: [
+            "FV", "RV", "nur DPN",
+        ];
+    }
+
+    valuetype LBcheck oftype decimal {
+        constraints: [
+            ub,
+        ];
+    }
+   constraint ub oftype RangeConstraint {
+        lowerBound: -90;
+        lowerBoundInclusive: false;
+        upperBound: 90;  
+        upperBoundInclusive: false;    
+    }
+    valuetype ifoptCheck oftype text {
+        constraints: [
+            IFOPT_Format,
+        ];
+    }
+    constraint IFOPT_Format oftype RegexConstraint {
+        regex: /[a-z]{2}:\d+:\d+(:\d+)?(:\d+)?/;
+    }
+
 pipeline airports{
+
     block DataExtractor oftype HttpExtractor{ url: "https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV";}
     block airTextFileInterpreter oftype TextFileInterpreter{}
     block airCSVInterpreter oftype CSVInterpreter{
@@ -9,13 +53,13 @@ pipeline airports{
         header: true;
         columns: [
         "EVA_NR" oftype integer,
-            "DS100" oftype text,
+            "DS100" oftype noemptycheck,
             "IFOPT" oftype text,
-            "NAME" oftype text,
-            "Verkehr" oftype text,
-            "Laenge" oftype decimal,
-            "Breite" oftype decimal,
-            "Betreiber_Name" oftype text,
+            "NAME" oftype noemptycheck,
+            "Verkehr" oftype verkehrcheck,
+            "Laenge" oftype LBcheck,
+            "Breite" oftype LBcheck,
+            "Betreiber_Name" oftype noemptycheck,
             "Betreiber_Nr" oftype integer,
         ];
     }
