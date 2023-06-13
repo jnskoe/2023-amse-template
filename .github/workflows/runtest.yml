@@ -5,7 +5,7 @@ on:
     branches:
     - main
     paths:
-    - project/tests.sh
+    - 2023-amse-template
 
 jobs:
   exercise-feedback:
