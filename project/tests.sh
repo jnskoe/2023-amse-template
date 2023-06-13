@@ -1,2 +1,2 @@
 #python3 data/script.py
-pytest data/tests.py
+python data/tests.py
