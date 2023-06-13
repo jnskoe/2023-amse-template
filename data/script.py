@@ -55,5 +55,6 @@ def main():
     plt.plot(*zip(*cleanedweatherdata))
     plt.show()
    
+   
 if __name__ == "__main__":
     main()
