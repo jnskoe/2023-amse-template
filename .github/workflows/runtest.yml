@@ -4,8 +4,6 @@ on:
   push:
     branches:
     - main
-    paths:
-    - 2023-amse-template
 
 jobs:
   exercise-feedback:
