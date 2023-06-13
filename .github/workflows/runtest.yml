@@ -16,11 +16,6 @@ jobs:
       with:
         path: main
 
-    - name: Checkout exercise feedback
-      uses: actions/checkout@v3
-      with:
-        repository: jvalue/amse-exercise-feedback
-        path: grading
 
     - name: Set up Node
       uses: actions/setup-node@v3
@@ -34,6 +29,6 @@ jobs:
         python-version: 3.11
 
     # Run test
-    - name: Exercise feedback
+    - name: Run Test
       run: |
-        ./project/tests.sh
+        project/tests.sh
