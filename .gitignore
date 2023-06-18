@@ -3,3 +3,4 @@ airports.sqlite
 data/__pycache__/script.cpython-310.pyc
 .vscode/settings.json
 trainstops.sqlite
+cars.sqlite
