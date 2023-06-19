@@ -2,17 +2,18 @@ import pandas as pd
 import sqlalchemy as sq
 
 def valint(input):
-    if (type(input) != int):
+    if input == "-":
         return False
-    return input > 0
+    return int(input) > 0
 
 def valcin(input):
     if (type(input) != str):
         return False
-    return len(input) == 5
+    if len(input) == 5:
+        return True
 
 fields = range(83)
-df = pd.read_csv("https://www-genesis.destatis.de/genesis/downloads/00/tables/46251-0021_00.csv",header=None,sep=';',encoding = "iso-8859-15",names = fields)
+df = pd.read_csv("https://www-genesis.destatis.de/genesis/downloads/00/tables/46251-0021_00.csv",dtype=str,header=None,sep=';',encoding = "iso-8859-15",names = fields)
 
 for i in range(1,8):
     df = df.drop(df.index[0])
