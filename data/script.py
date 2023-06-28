@@ -1,8 +1,14 @@
 import pandas as pd
 from datetime import datetime
 import matplotlib.pyplot as plt
+plt.rcParams["figure.figsize"] = (40,6)
 import matplotlib.dates as mdates
 import numpy
+
+def valdate(input):
+    if input < 2019000000 or input >= 2020000000:
+        return False
+    return True
 
 def main():
     
@@ -32,6 +38,7 @@ def main():
 
     weatherdata = []
     df = pd.read_sql_table('weather', 'sqlite:///data.sqlite')
+    df = df[df["MESS_DATUM"].apply(lambda x: valdate(x))]
     for index, row in df.iterrows():
         weatherdata.append((datetime.strptime(str(row["MESS_DATUM"]),"%Y%m%d%H"),row["RF_STD"]))
     
@@ -45,14 +52,16 @@ def main():
             combinedmonth.append((currdate,sum))
             sum = i[1]
             currdate  = i[0]
-    cleanedweatherdata = []
-    for i in weatherdata:
-        if str(i[0].year) == "2019":
-            cleanedweatherdata.append(i)
+
     zip(*combinedmonth)
-    plt.plot(*zip(*combinedmonth))
-    zip(*cleanedweatherdata)
-    plt.plot(*zip(*cleanedweatherdata))
+    plt.plot(*zip(*combinedmonth[0:720]),label = "Cyclists")
+    zip(*weatherdata)
+    plt.plot(*zip(*weatherdata[0:720]),label = "Humidity")
+    
+    plt.xlabel('DateTime', fontsize=10)
+    plt.ylabel('Number of Cyclists/2m relative humidity %', fontsize=10)
+    plt.legend(loc="upper right")
+    
     plt.show()
    
    
