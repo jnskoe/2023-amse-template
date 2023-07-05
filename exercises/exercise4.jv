@@ -9,15 +9,9 @@
         lowerBoundInclusive: false;
     }
 
-    transform CelsiusToFahrenheit {
-        from  inputColumn oftype decimal;
-        to outputColumn oftype decimal;
-        outputColumn: (inputColumn * (9/5)) + 32;
-	}
+    
 
 pipeline temppipe {
-
-
     block TempFeedExtractor oftype HttpExtractor {
 		url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
 	}
@@ -39,15 +33,19 @@ pipeline temppipe {
 
     block TemperaturRename oftype CellWriter{
         at: cell E1;
-        write: 'Temperatur';
+        write: ['Temperatur'];
     }
 
     block BattRename oftype CellWriter{
         at: cell M1;
-        write: "Batterietemperatur";
+        write: ["Batterietemperatur"];
     }
 
-    
+    transform CelsiusToFahrenheit {
+        from  inputColumn oftype decimal;
+        to outputColumn oftype decimal;
+        outputColumn: (inputColumn * (9/5)) + 32;
+	}
 
     block CelsiusToFahrenheitTransformer oftype TableTransformer {
         inputColumn: 'Batterietemperatur';
@@ -88,5 +86,6 @@ pipeline temppipe {
         ->BattRename
         ->TempTableInterpreter
         ->CelsiusToFahrenheitTransformer
+        ->CelsiusToFahrenheitTransformer2
         ->DatabaseLoader;
 }
