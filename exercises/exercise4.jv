@@ -44,7 +44,7 @@ pipeline temppipe {
     transform CelsiusToFahrenheit {
         from  inputColumn oftype decimal;
         to outputColumn oftype decimal;
-        outputColumn: (inputColumn * (9/5)) + 32;
+        outputColumn: inputColumn * 9/5 + 32;
 	}
 
     block CelsiusToFahrenheitTransformer oftype TableTransformer {
