@@ -5,3 +5,10 @@ data/__pycache__/script.cpython-310.pyc
 trainstops.sqlite
 cars.sqlite
 temperatures.sqlite
+GTFS/agency.txt
+GTFS/calendar_dates.txt
+GTFS/routes.txt
+GTFS/stop_times.txt
+GTFS/stops.txt
+GTFS/trips.txt
+gtfs.sqlite
